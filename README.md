@@ -1,9 +1,9 @@
 # EFFECTIVE CODE BASE MANAGEMENT WITH SOLID PRINCIPLES
 ## Abstract
-It's quite natural to see that the environment of the code gets updated frequently, in terms of the versions of the Operating System where the code gets deployed, in some cases database needs to be migrated from one to another. To make sure that the software is more secure and performant in terms of space and time. For all the above cases at least some minor changes needs to be made in base case, and the entire code needs to be refactored in worst case. However any change that made to the code inevitably affecting the rest of the code in one way or the other. And it become very complex to deal with code in worst case conditions. Here comes the concept of SOLID which reduces the complexity of the changes and refactoring.
+It's quite natural to see that the environment of the code gets updated frequently, in terms of the versions of the Operating System where the code gets deployed, in some cases database needs to be migrated from one to another. To make sure that the software is more secure and performant in terms of space and time. For all the above cases at least some minor changes need to be made in the best case, and the entire code needs to be refactored in the worst case. However, any change that is made to the code inevitably affects the rest of the code in one way or the other. And it becomes very complex to deal with code in worst-case conditions. Here comes the concept of SOLID which reduces the complexity of the changes and refactoring.
 
 ## Introduction
-SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin.These principles establish practices that lend to developing software with considerations for maintaining and extending as the project grows. Adopting these practices can also contribute to avoiding code smells, refactoring code, and Agile or Adaptive software development.
+SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin. These principles establish practices that lend to developing software with considerations for maintaining and extending as the project grows. Adopting these practices can also contribute to avoiding code smells, refactoring code, and Agile or Adaptive software development.
 
 ### SOLID stands for:
 * S - Single responsibility Principle.
@@ -16,7 +16,7 @@ SOLID is an acronym for the first five object-oriented design (OOD) principles b
 ## Single-Responsibility Principle
 Single-responsibility Principle (SRP) states that a class should have one and only one reason to change, meaning that a class should have only one job. For example, consider an application that takes a collection of shapes—circles, and squares—and calculates the sum of the area of all the shapes in the collection. First, create the shape classes and have the constructors set up the required parameters.
 
-First, create the shape classes and have the constructors set up the required parameters. For squares, developer will need to know the length of a side:
+First, create the shape classes and have the constructors set up the required parameters. For squares, the developer will need to know the length of a side:
 
 ```
 class Square
@@ -30,7 +30,7 @@ class Square
 }
 ```
 
-For circles, developer will need to know the radius:
+For circles, the developer will need to know the radius:
 
 ```
 class Circle
@@ -44,7 +44,7 @@ class Circle
 }
 ```
 
-Next, create the AreaCalculator class and then write up the logic to sum up the areas of all provided shapes. The area of a square is calculated by length squared. The area of a circle is calculated by pi times radius squared.
+Next, create the AreaCalculator class and then write up the logic, to sum up, the areas of all provided shapes. The area of a square is calculated by length squared. The area of a circle is calculated by pi times radius squared.
 
 ```
 class AreaCalculator
@@ -156,7 +156,7 @@ Now, the logic you need to output the data to the user is handled by the SumCalc
 That satisfies the single-responsibility principle.
 
 ## Open-Closed Principle
-Open-closed Principle (OCP) states that, objects or entities should be open for extension but closed for modification. This means that a class should be extendable without modifying the class itself.Let’s revisit the AreaCalculator class and focus on the sum method:
+The open-closed Principle (OCP) states that objects or entities should be open for extension but closed for modification. This means that a class should be extendable without modifying the class itself. Let’s revisit the AreaCalculator class and focus on the sum method:
 ```
 class AreaCalculator
 {
@@ -260,7 +260,7 @@ class Circle implements ShapeInterface
     // ...
 }
 ```
-In the sum method for AreaCalculator, you can check if the shapes provided are actually instances of the ShapeInterface; otherwise, throw an exception:
+In the sum method for AreaCalculator, you can check if the shapes provided are instances of the ShapeInterface; otherwise, throw an exception:
 ```
  class AreaCalculator
 {
@@ -334,7 +334,7 @@ class SumCalculatorOutputter {
     }
 }
 ```
-If developer tried to run an example like this:
+If a developer tried to run an example like this:
 ```
 $areas = new AreaCalculator($shapes);
 $volumes = new VolumeCalculator($solidShapes);
@@ -366,7 +366,7 @@ That satisfies the Liskov substitution principle.
 
 ## Interface Segregation Principle
 
-Interface segregation principle states that, a client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.
+The interface segregation principle states that a client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.
 
 Still building from the previous ShapeInterface example, you will need to support the new three-dimensional shapes of Cuboid and Spheroid, and these shapes will need to also calculate volume.
 
@@ -447,12 +447,12 @@ class Cuboid implements ShapeInterface, ThreeDimensionalShapeInterface, ManageSh
     }
 }
 ```
-Now in AreaCalculator class, you can replace the call to the area method with calculate and also check if the object is an instance of the ManageShapeInterface and not the ShapeInterface.
+Now in AreaCalculator class, you can replace the call to the area method with calculating and also check if the object is an instance of the ManageShapeInterface and not the ShapeInterface.
 
 That satisfies the interface segregation principle.
 
 ### Dependency Inversion Principle
-Dependency inversion principle states that, entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.
+The dependency inversion principle states that entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but should depend on abstractions.
 
 This principle allows for decoupling.
 
@@ -489,7 +489,7 @@ interface DBConnectionInterface
     public function connect();
 }
 ```
-The interface has a connect method and the MySQLConnection class implements this interface. Also, instead of directly type-hinting MySQLConnection class in the constructor of the PasswordReminder, you instead type-hint the DBConnectionInterface and no matter the type of database your application uses, the PasswordReminder class can connect to the database without any problems and open-close principle is not violated.
+The interface has a connect method and the MySQLConnection class implements this interface. Also, instead of directly type-hinting MySQLConnection class in the constructor of the PasswordReminder, you instead type-hint the DBConnectionInterface, no matter the type of database your application uses, the PasswordReminder class can connect to the database without any problems and the open-close principle is not violated.
 
 ```
 class MySQLConnection implements DBConnectionInterface
@@ -514,7 +514,7 @@ class PasswordReminder
 This code establishes that both the high-level and low-level modules depend on abstraction.
 
 ### Conclusion
-n this paper,the five principles of SOLID Code were presented. Projects that adhere to SOLID principles can be shared with collaborators, extended, modified, tested, and refactored with fewer complications.
+n this paper, the five principles of the SOLID Code were presented. Projects that adhere to SOLID principles can be shared with collaborators, extended, modified, tested, and refactored with fewer complications.
 
 
 Reference [ SOLID principles ](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
